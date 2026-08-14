@@ -815,6 +815,13 @@ test_api_custom_json:
 	$(QUIET)$(ECHO) "[ ${CYAN}TEST${NC} ] Run custom JSON API tests against running server"
 	$(QUIET)TEDDYCLOUD_BASE_URL=http://127.0.0.1:80 python3 tests/test_tonies_custom_json_api.py
 
+.PHONY: test_tb2_ruid
+test_tb2_ruid: | $(BIN_DIR)/
+	$(QUIET)$(ECHO) "[ ${CYAN}TEST${NC} ] Run TB2 rUID unit tests"
+	$(QUIET)$(CC) $(CFLAGS_$(PLATFORM)) -Isrc/cyclone/common -Iinclude \
+		tests/test_tb2_ruid.c src/tb2_ruid.c -o $(BIN_DIR)/test_tb2_ruid
+	$(QUIET)$(BIN_DIR)/test_tb2_ruid
+
 .PHONY: test_api_custom_json_with_server
 test_api_custom_json_with_server: build
 	$(QUIET)$(ECHO) "[ ${CYAN}TEST${NC} ] Start server, run custom JSON API tests, stop server"
